@@ -21,7 +21,7 @@ class Calculator:
         entry = tk.Entry(self.root, textvariable=self.entry_var, font=("Arial", 18), justify="right")
         entry.grid(row=0, column=1, columnspan=3, sticky="nsew")
         
-        clear_btn = tk.Button(self.root, text = 'C', font=("Arial", 15), width=8, height=2, command=self.on_button_click('c'))
+        clear_btn = tk.Button(self.root, text = 'C', font=("Arial", 15), width=8, height=2, command=lambda t = 'C': self.on_button_click(t))
         clear_btn.grid(row=0, column=0, columnspan=1)
         
         buttons = [
