@@ -1,7 +1,7 @@
 import tkinter as tk  # Importing Tkinter for GUI
 import math    # Importing math module for mathematical functions
 
-# Function to evaluate mathematical expressions safely
+#Function to evaluate mathematical expressions safely
 def evaluate_expression(expression):
     """Evaluates a mathematical expression entered by the user."""
     try:
@@ -19,7 +19,7 @@ def evaluate_expression(expression):
     except Exception:
         return "Error"
 
-# Function to handle button clicks
+#Function to handle button clicks
 def on_button_click(value):
     """Handles user input from button clicks."""
     if value == "C":
@@ -37,7 +37,7 @@ def update_history(expression, result):
     history_text.see(tk.END)
     history_text.config(state=tk.DISABLED)
 
-# Create the main application window
+#Create the main application window
 root = tk.Tk()
 root.title("Simple Calculator")
 
@@ -75,5 +75,5 @@ for j in range(4):
 history_text = tk.Text(root, height=10, width=40, font=("Arial", 12), state=tk.DISABLED)
 history_text.grid(row=len(buttons)+1, column=0, columnspan=4, sticky="nsew")
 
-# Run the application
+#Run the application
 root.mainloop()
