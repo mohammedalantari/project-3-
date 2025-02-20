@@ -9,21 +9,24 @@ import tkinter as tk
 import math
 
 class Calculator:
+    #setting the attributes of the calculator
     def __init__(self, root):
         self.root = root
         self.root.title("Simple Calculator")
-        self.entry_var = tk.StringVar()
-        
+        self.entry_var = tk.StringVar()        
         self.create_widgets()
     
     def create_widgets(self):
         """Creates the calculator UI."""
+        #setting the entry for the equations and results to show
         entry = tk.Entry(self.root, textvariable=self.entry_var, font=("Arial", 18), justify="right")
         entry.grid(row=0, column=1, columnspan=3, sticky="nsew")
         
+        #setting the clear button
         clear_btn = tk.Button(self.root, text = 'C', font=("Arial", 15), width=8, height=2, command=lambda t = 'C': self.on_button_click(t))
         clear_btn.grid(row=0, column=0, columnspan=1)
         
+        #setting the rest of the buttons
         buttons = [
             ['^', '(', ')', '/'],
             ['7', '8', '9', '*'],
@@ -45,19 +48,24 @@ class Calculator:
             self.root.grid_rowconfigure(i, weight=1)
         for j in range(4):
             self.root.grid_columnconfigure(j, weight=1)
-
+        
+        #setting an area to show past entered equations
         self.history_text = tk.Text(self.root, height=10, width=40, font=("Arial", 12), state=tk.DISABLED)
         self.history_text.grid(row=len(buttons) + 1, column=0, columnspan=4, sticky="nsew")
     
     def evaluate_expression(self, expression):
         """Evaluates the given mathematical expression safely."""
         try:
-            expression = expression.replace("^", "**")
+            expression = expression.replace("^", "**") #replacing symbol for python to use
+            
+            #dictionary of additional functions being used
             safe_functions = {
                 "sin": math.sin, "cos": math.cos, "tan": math.tan,
                 "sqrt": math.sqrt, "log": math.log, "log10": math.log10,
                 "arcsin": math.asin, "arccos": math.acos, "arctan": math.atan
             }
+            
+            #creating the result of the equation
             result = eval(expression, {"__builtins__": None}, safe_functions)
             return result
         except Exception:
@@ -65,12 +73,15 @@ class Calculator:
     
     def on_button_click(self, value):
         """Handles button clicks."""
+        #clearing the entry
         if value == "C":
             self.entry_var.set("")
+        #calling the function to compute the equation
         elif value == "=":
             result = self.evaluate_expression(self.entry_var.get())
             self.update_history(self.entry_var.get(), result)
             self.entry_var.set(result)
+        #calling the function to evaluate the previous result and the new entry
         else:
             self.entry_var.set(self.entry_var.get() + value)
     
